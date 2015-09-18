@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="collective.behavior.priorityorder">
+
+  <five:registerPackage package="." initialize=".initialize" />
+
+    <include package="plone.behavior" file="meta.zcml" />
+
+    <include package="plone.directives.form" file="meta.zcml" />
+    <include package="plone.directives.form" />
+
+    <grok:grok package=".behaviors" />
+
+    <plone:behavior
+        title="Priority Ordering"
+        description="Field for custom ordering for dexterity content."
+        provides=".behaviors.IPriorityOrdering"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        marker=".behaviors.IPriorityOrdering"
+        />
+
+</configure>
