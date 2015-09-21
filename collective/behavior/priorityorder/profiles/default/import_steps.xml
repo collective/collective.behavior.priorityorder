@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<import-steps>
- <import-step id="collective.behaviors.priorityorder-various" version="20150918"
-              handler="collective.behaviors.priorityorder.setuphandlers.importVarious"
-              title="Additional Collective behaviors priority order setup">
- </import-step>
-</import-steps>

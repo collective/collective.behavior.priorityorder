@@ -4,7 +4,7 @@ from plone import api
 import logging
 
 
-PROFILE_ID = 'profile-collective.behaviors.priorityorder:default'
+PROFILE_ID = 'profile-collective.behavior.priorityorder:default'
 
 def add_catalog_indexes(context, logger=None):
     """Method to add our wanted indexes to the portal_catalog.
@@ -19,7 +19,7 @@ def add_catalog_indexes(context, logger=None):
     if logger is None:
         # Called as upgrade step: define our own logger.
         logger = logging.getLogger(
-            'collective.behaviors.priorityorder.setuphandlers')
+            'collective.behavior.priorityorder.setuphandlers')
 
     # Run the catalog.xml step as that may have defined new metadata
     # columns.  We could instead add <depends name="catalog"/> to
@@ -51,13 +51,13 @@ def add_catalog_indexes(context, logger=None):
     catalog.manage_reindexIndex(ids=indexables)
 
 
-def importVarious(context):
+def post_install(context):
     """Miscelaneous steps import handle
     """
     if context.readDataFile(
-            'collective.behaviors.priorityorder_various.txt') is None:
+            'collective.behavior.priorityorder_various.txt') is None:
         return
     logger = context.getLogger(
-        'collective.behaviors.priorityorder.setuphandlers')
+        'collective.behavior.priorityorder.setuphandlers')
     portal = context.getSite()
     add_catalog_indexes(portal, logger)
