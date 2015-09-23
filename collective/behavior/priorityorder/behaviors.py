@@ -14,6 +14,7 @@ class IPriorityOrdering(model.Schema):
         description=_(u"Enter a number for setting the priority. "
                       u"Highest priority = 1"),
         required=False,
+        default=1000,
     )
 
 alsoProvides(IPriorityOrdering, IFormFieldProvider)
