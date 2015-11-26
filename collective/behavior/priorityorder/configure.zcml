@@ -22,7 +22,6 @@
         title="Priority Ordering"
         description="Field for custom ordering for dexterity content."
         provides=".behaviors.IPriorityOrdering"
-        for="plone.dexterity.interfaces.IDexterityContent"
         marker=".behaviors.IPriorityOrdering"
         i18n:attributes="title description"
         />
