@@ -1,10 +1,28 @@
 # -*- coding: utf-8 -*-
 from plone import api
+from Products.CMFPlone.interfaces import INonInstallable
+from zope.interface import implementer
 
 import logging
 
 
 PROFILE_ID = 'profile-collective.behavior.priorityorder:default'
+
+
+
+@implementer(INonInstallable)
+class HiddenProfiles(object):
+
+    def getNonInstallableProfiles(self):
+        """Hide uninstall profile from site-creation and quickinstaller"""
+        return [
+            'collective.behavior.priorityorder:uninstall',
+        ]
+
+
+def uninstall(context):
+    """uninstall step"""
+
 
 def add_catalog_indexes(context, logger=None):
     """Method to add our wanted indexes to the portal_catalog.
