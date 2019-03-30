@@ -72,10 +72,4 @@ def add_catalog_indexes(context, logger=None):
 def post_install(context):
     """Miscelaneous steps import handle
     """
-    if context.readDataFile(
-            'collective.behavior.priorityorder_various.txt') is None:
-        return
-    logger = context.getLogger(
-        'collective.behavior.priorityorder.setuphandlers')
-    portal = context.getSite()
-    add_catalog_indexes(portal, logger)
+    add_catalog_indexes(context)

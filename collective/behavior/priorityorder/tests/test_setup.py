@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-"""Setup/installation tests for this package."""
-
-from collective.behavior.priorityorder.testing import IntegrationTestCase
+from collective.behavior.priorityorder.testing import INTEGRATION_TESTING
 from plone import api
 
+import unittest
 
-class TestInstall(IntegrationTestCase):
+
+class TestInstall(unittest.TestCase):
     """Test installation of collective.behavior.priorityorder into Plone."""
+    layer = INTEGRATION_TESTING
 
     def setUp(self):
         """Custom shared utility setup for tests."""

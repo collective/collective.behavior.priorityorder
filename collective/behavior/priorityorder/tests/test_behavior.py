@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
+from collective.behavior.priorityorder.testing import INTEGRATION_TESTING
 from plone import api
-from collective.behavior.priorityorder.testing import IntegrationTestCase
+
+import unittest
 
 
-class TestBehavior(IntegrationTestCase):
+class TestBehavior(unittest.TestCase):
+    layer = INTEGRATION_TESTING
 
     def setUp(self):
         """ """

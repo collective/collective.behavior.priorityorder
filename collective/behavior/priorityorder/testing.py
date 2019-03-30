@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-"""Base module for unittesting."""
-
 from plone.app.robotframework.testing import AUTOLOGIN_LIBRARY_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
@@ -14,13 +12,11 @@ from plone.app.testing import TEST_USER_NAME
 from plone.testing import z2
 
 import collective.behavior.priorityorder
-import unittest2 as unittest
 
 
-class CollectiveBehaviorPriorityOrderLayer(PloneSandboxLayer):
+class TestingLayer(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE,)
-    products = ('collective.behavior.priorityorder',)
 
     def setUpZope(self, app, configurationContext):
         """Set up Zope."""
@@ -29,8 +25,6 @@ class CollectiveBehaviorPriorityOrderLayer(PloneSandboxLayer):
         self.loadZCML(package=plone.app.dexterity)
         self.loadZCML(package=collective.behavior.priorityorder,
                       name='testing.zcml')
-        for p in self.products:
-            z2.installProduct(app, p)
 
     def setUpPloneSite(self, portal):
         """Set up Plone."""
@@ -55,46 +49,22 @@ class CollectiveBehaviorPriorityOrderLayer(PloneSandboxLayer):
         import transaction
         transaction.commit()
 
-    def tearDownZope(self, app):
-        """Tear down Zope."""
-        for p in reversed(self.products):
-            z2.uninstallProduct(app, p)
+
+TESTING_FIXTURE = TestingLayer()
 
 
-FIXTURE = CollectiveBehaviorPriorityOrderLayer(
-    name="FIXTURE"
+INTEGRATION_TESTING = IntegrationTesting(
+    bases=(TESTING_FIXTURE,),
+    name="CollectiveBehaviorPriorityorderTestingLayer:IntegrationTesting"
     )
 
-
-INTEGRATION = IntegrationTesting(
-    bases=(FIXTURE,),
-    name="INTEGRATION"
+FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(TESTING_FIXTURE,),
+    name="CollectiveBehaviorPriorityorderTestingLayer:FunctionalTesting"
     )
 
-
-FUNCTIONAL = FunctionalTesting(
-    bases=(FIXTURE,),
-    name="FUNCTIONAL"
-    )
-
-
-ACCEPTANCE = FunctionalTesting(bases=(FIXTURE,
-                                      AUTOLOGIN_LIBRARY_FIXTURE,
-                                      z2.ZSERVER_FIXTURE),
-                               name="ACCEPTANCE")
-
-
-class IntegrationTestCase(unittest.TestCase):
-    """Base class for integration tests."""
-
-    layer = INTEGRATION
-
-    def setUp(self):
-        super(IntegrationTestCase, self).setUp()
-        self.portal = self.layer['portal']
-
-
-class FunctionalTestCase(unittest.TestCase):
-    """Base class for functional tests."""
-
-    layer = FUNCTIONAL
+ACCEPTANCE_TESTING = FunctionalTesting(
+    bases=(TESTING_FIXTURE,
+           AUTOLOGIN_LIBRARY_FIXTURE,
+           z2.ZSERVER_FIXTURE),
+    name="CollectiveBehaviorPriorityorderTestingLayer:AcceptanceTesting")
