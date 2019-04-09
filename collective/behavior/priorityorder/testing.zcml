@@ -6,7 +6,7 @@
 
   <include file="configure.zcml" />
 
-  <class class="Products.ATContentTypes.content.document.ATDocument">
+  <class class="plone.app.contenttypes.content.Document">
     <implements interface="collective.behavior.priorityorder.behaviors.IPriorityOrdering" />
   </class>
 
