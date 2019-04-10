@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from plone.app.robotframework.testing import AUTOLOGIN_LIBRARY_FIXTURE
-from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import login
@@ -28,10 +27,10 @@ class TestingLayer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         """Set up Plone."""
-        applyProfile(portal, 'plone.app.dexterity:default')
+        self.applyProfile(portal, 'plone.app.dexterity:default')
         #applyProfile(portal, 'Products.CMFPlone:plone-content')
         # Install into Plone site using portal_setup
-        applyProfile(portal, 'collective.behavior.priorityorder:testing')
+        self.applyProfile(portal, 'collective.behavior.priorityorder:testing')
 
         # Login and create some test content
         setRoles(portal, TEST_USER_ID, ['Manager'])
